@@ -767,7 +767,7 @@
             if (ENABLE_N8N && N8N_WEBHOOK_URL && !N8N_WEBHOOK_URL.includes('your-instance')) {
                 // 如果启用了n8n，提交到Webhook
                 const response = await fetch(N8N_WEBHOOK_URL, {
-                    method: 'GET',
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
