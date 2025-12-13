@@ -2,13 +2,14 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>下载案例白皮书 - 建智通程 AI项目管理解决方案</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>下载案例白皮书 - 建智通程 AI项目管理</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -16,6 +17,7 @@
             --light-blue: #3b82f6;
             --sky-blue: #0ea5e9;
             --dark-blue: #1e40af;
+            --success-green: #10b981;
             --pure-white: #ffffff;
             --off-white: #f8fafc;
             --light-gray: #e2e8f0;
@@ -25,199 +27,151 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(14, 165, 233, 0.9) 100%);
             min-height: 100vh;
             padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+
+        .back-link:active {
+            opacity: 0.7;
         }
 
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 50px;
+            margin-bottom: 35px;
         }
 
         .header h1 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 15px;
             font-weight: 800;
+            line-height: 1.3;
         }
 
         .header p {
-            font-size: 1.3em;
+            font-size: 17px;
             opacity: 0.95;
             line-height: 1.6;
         }
 
-        .content-card {
+        .main-card {
             background: white;
             border-radius: 20px;
-            padding: 50px;
+            padding: 35px 25px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* PDF Preview */
+        .pdf-preview {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 15px;
+            padding: 30px;
             margin-bottom: 30px;
+            text-align: center;
+            color: white;
         }
 
-        .whitepaper-preview {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-            align-items: start;
-        }
-
-        .preview-cover {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 1px solid var(--light-gray);
-        }
-
-        .preview-info h2 {
-            color: var(--dark-blue);
-            font-size: 2em;
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
-        .preview-info p {
-            color: var(--text-gray);
-            line-height: 1.8;
+        .pdf-icon {
+            font-size: 60px;
             margin-bottom: 15px;
         }
 
-        .highlights {
-            background: var(--off-white);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
-        }
-
-        .highlights h3 {
-            color: var(--dark-blue);
-            font-size: 1.5em;
-            margin-bottom: 20px;
+        .pdf-title {
+            font-size: 20px;
             font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
-        .highlights-grid {
+        .pdf-meta {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .pdf-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        /* Content Highlights */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
 
         .highlight-item {
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            border-left: 4px solid var(--primary-blue);
-        }
-
-        .highlight-item .icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .highlight-item .title {
-            font-weight: 700;
-            color: var(--dark-blue);
-            margin-bottom: 8px;
-            font-size: 1.1em;
-        }
-
-        .highlight-item .desc {
-            color: var(--text-gray);
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .download-section {
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-            padding: 35px;
-            border-radius: 15px;
-            margin-top: 35px;
-        }
-
-        .download-section h3 {
-            color: var(--dark-blue);
-            font-size: 1.6em;
-            margin-bottom: 20px;
-            font-weight: 700;
+            background: var(--off-white);
+            padding: 18px 15px;
+            border-radius: 12px;
             text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--text-dark);
+        .highlight-icon {
+            font-size: 28px;
             margin-bottom: 8px;
         }
 
-        .form-group label .required {
-            color: #ef4444;
+        .highlight-text {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
+            line-height: 1.4;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--light-gray);
-            border-radius: 10px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .download-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
-            margin-top: 20px;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(37, 99, 235, 0.4);
-        }
-
-        .toc-preview {
-            background: white;
-            padding: 40px;
+        /* Table of Contents */
+        .toc-section {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            padding: 25px;
             border-radius: 15px;
-            margin-top: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary-blue);
         }
 
-        .toc-preview h3 {
+        .toc-title {
+            font-size: 18px;
             color: var(--dark-blue);
-            font-size: 1.6em;
-            margin-bottom: 25px;
             font-weight: 700;
+            margin-bottom: 15px;
         }
 
         .toc-list {
@@ -225,11 +179,11 @@
         }
 
         .toc-item {
-            padding: 15px 0;
-            border-bottom: 1px solid var(--light-gray);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.15);
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
         .toc-item:last-child {
@@ -237,248 +191,250 @@
         }
 
         .toc-number {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            background: var(--primary-blue);
             color: white;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
             font-weight: 700;
-            margin-right: 15px;
+            flex-shrink: 0;
         }
 
-        .toc-title {
-            flex: 1;
-            font-weight: 600;
+        .toc-text {
+            font-size: 15px;
             color: var(--text-dark);
+            font-weight: 500;
         }
 
-        .toc-pages {
-            color: var(--text-gray);
-            font-size: 0.9em;
-        }
-
-        .success-message {
-            display: none;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .success-message h3 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .success-message p {
-            font-size: 1.2em;
-            opacity: 0.95;
+        /* Cases Preview */
+        .cases-preview {
             margin-bottom: 30px;
         }
 
-        .success-message .download-link {
+        .case-tag {
             display: inline-block;
-            padding: 15px 40px;
-            background: white;
-            color: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0 6px 10px 0;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            border: none;
             border-radius: 50px;
-            text-decoration: none;
+            font-size: 18px;
             font-weight: 700;
-            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .download-note {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Links Section */
+        .links-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--light-gray);
+            text-align: center;
+        }
+
+        .links-title {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .link-btn {
+            display: block;
+            padding: 14px 15px;
+            background: var(--off-white);
+            color: var(--primary-blue);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
             transition: all 0.3s ease;
         }
 
-        .success-message .download-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .link-btn:active {
+            background: #e1e8f0;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .content-card {
-                padding: 30px 20px;
+        /* Desktop Enhancements */
+        @media (min-width: 768px) {
+            body {
+                padding: 60px 20px;
             }
 
-            .whitepaper-preview {
-                grid-template-columns: 1fr;
+            .header h1 {
+                font-size: 36px;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
+            .main-card {
+                padding: 50px;
             }
 
-            .highlights-grid {
-                grid-template-columns: 1fr;
+            .pdf-preview {
+                padding: 40px;
+            }
+
+            .pdf-icon {
+                font-size: 80px;
+            }
+
+            .pdf-title {
+                font-size: 24px;
+            }
+
+            .highlight-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .download-btn {
+                max-width: 400px;
+                margin: 0 auto 15px;
+            }
+
+            .download-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 35px rgba(37, 99, 235, 0.45);
+            }
+
+            .link-btn:hover {
+                background: #dbe5f0;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-link">← 返回首页</a>
+
         <div class="header">
-            <h1>📘 案例白皮书</h1>
-            <p>建筑智能化系统AI项目管理实践指南</p>
+            <h1>AI项目管理案例白皮书</h1>
+            <p>深入了解建筑智能化行业如何通过AI对话式管理实现效率革命</p>
         </div>
 
-        <div class="content-card" id="downloadForm">
-            <div class="whitepaper-preview">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='350' viewBox='0 0 250 350'%3E%3Crect fill='%232563eb' width='250' height='350'/%3E%3Ctext x='50%25' y='45%25' font-size='24' fill='white' text-anchor='middle' font-family='Arial'%3E建智通程%3C/text%3E%3Ctext x='50%25' y='55%25' font-size='18' fill='white' text-anchor='middle' font-family='Arial'%3EAI项目管理%3C/text%3E%3Ctext x='50%25' y='62%25' font-size='16' fill='white' text-anchor='middle' font-family='Arial'%3E案例白皮书%3C/text%3E%3C/svg%3E" alt="白皮书封面" class="preview-cover">
-                
-                <div class="preview-info">
-                    <h2>AI驱动的建筑智能化项目管理革命</h2>
-                    <p><strong>60页深度解析</strong> · 涵盖理论框架、实施方法、真实案例与技术文档</p>
-                    <p>本白皮书由建智通程团队基于7年行业经验和多个标杆项目实践编写，为建筑智能化行业从业者提供AI项目管理的完整解决方案。</p>
-                    <p><strong>适用对象：</strong>项目经理、技术总监、系统集成商、设计院、甲方管理人员</p>
-                </div>
+        <div class="main-card">
+            <!-- PDF Preview -->
+            <div class="pdf-preview">
+                <div class="pdf-icon">📄</div>
+                <div class="pdf-title">建智通程 AI项目管理案例白皮书</div>
+                <div class="pdf-meta">建筑智能化系统项目管理革命 · V1.0 · 2025年12月</div>
+                <div class="pdf-badge">PDF · 13页</div>
             </div>
 
-            <div class="highlights">
-                <h3>核心亮点</h3>
-                <div class="highlights-grid">
+            <!-- Content Highlights -->
+            <div class="content-section">
+                <h2 class="section-title">📊 白皮书亮点</h2>
+                <div class="highlight-grid">
                     <div class="highlight-item">
-                        <div class="icon">📊</div>
-                        <div class="title">真实案例</div>
-                        <div class="desc">5个标杆项目详细拆解</div>
+                        <div class="highlight-icon">🏢</div>
+                        <div class="highlight-text">5个成功案例</div>
                     </div>
                     <div class="highlight-item">
-                        <div class="icon">🛠️</div>
-                        <div class="title">实施指南</div>
-                        <div class="desc">可落地的操作手册</div>
+                        <div class="highlight-icon">📈</div>
+                        <div class="highlight-text">ROI分析模型</div>
                     </div>
                     <div class="highlight-item">
-                        <div class="icon">💡</div>
-                        <div class="title">技术文档</div>
-                        <div class="desc">系统架构与集成方案</div>
+                        <div class="highlight-icon">🔧</div>
+                        <div class="highlight-text">技术架构详解</div>
                     </div>
                     <div class="highlight-item">
-                        <div class="icon">📈</div>
-                        <div class="title">ROI分析</div>
-                        <div class="desc">量化投资回报模型</div>
+                        <div class="highlight-icon">🗺️</div>
+                        <div class="highlight-text">实施路线图</div>
                     </div>
                 </div>
             </div>
 
-            <div class="toc-preview">
-                <h3>目录预览</h3>
+            <!-- Table of Contents -->
+            <div class="toc-section">
+                <h3 class="toc-title">📖 目录概览</h3>
                 <ul class="toc-list">
                     <li class="toc-item">
-                        <span><span class="toc-number">1</span><span class="toc-title">行业现状与痛点分析</span></span>
-                        <span class="toc-pages">P1-8</span>
+                        <span class="toc-number">1</span>
+                        <span class="toc-text">行业现状与痛点分析</span>
                     </li>
                     <li class="toc-item">
-                        <span><span class="toc-number">2</span><span class="toc-title">AI项目管理解决方案</span></span>
-                        <span class="toc-pages">P9-18</span>
+                        <span class="toc-number">2</span>
+                        <span class="toc-text">AI项目管理解决方案</span>
                     </li>
                     <li class="toc-item">
-                        <span><span class="toc-number">3</span><span class="toc-title">成功案例深度解析</span></span>
-                        <span class="toc-pages">P19-35</span>
+                        <span class="toc-number">3</span>
+                        <span class="toc-text">成功案例深度解析</span>
                     </li>
                     <li class="toc-item">
-                        <span><span class="toc-number">4</span><span class="toc-title">实施路线图与最佳实践</span></span>
-                        <span class="toc-pages">P36-45</span>
+                        <span class="toc-number">4</span>
+                        <span class="toc-text">实施路线图与最佳实践</span>
                     </li>
                     <li class="toc-item">
-                        <span><span class="toc-number">5</span><span class="toc-title">技术架构与集成方案</span></span>
-                        <span class="toc-pages">P46-55</span>
+                        <span class="toc-number">5</span>
+                        <span class="toc-text">技术架构与集成方案</span>
                     </li>
                     <li class="toc-item">
-                        <span><span class="toc-number">6</span><span class="toc-title">投资回报与效益分析</span></span>
-                        <span class="toc-pages">P56-60</span>
+                        <span class="toc-number">6</span>
+                        <span class="toc-text">投资回报与效益分析</span>
                     </li>
                 </ul>
             </div>
 
-            <div class="download-section">
-                <h3>填写信息，立即下载</h3>
-                <form id="downloadWhitepaperForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>姓名<span class="required">*</span></label>
-                            <input type="text" name="name" required placeholder="请输入您的姓名">
-                        </div>
-                        <div class="form-group">
-                            <label>公司<span class="required">*</span></label>
-                            <input type="text" name="company" required placeholder="请输入公司名称">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>手机号<span class="required">*</span></label>
-                            <input type="tel" name="phone" required placeholder="请输入手机号">
-                        </div>
-                        <div class="form-group">
-                            <label>邮箱<span class="required">*</span></label>
-                            <input type="email" name="email" required placeholder="请输入邮箱地址">
-                        </div>
-                    </div>
-                    <button type="submit" class="download-btn">立即下载白皮书</button>
-                </form>
+            <!-- Cases Preview -->
+            <div class="cases-preview">
+                <h2 class="section-title">🏗️ 收录案例</h2>
+                <span class="case-tag">蔚来F3超级工厂</span>
+                <span class="case-tag">中信泰富总部</span>
+                <span class="case-tag">航天科技产业园</span>
+                <span class="case-tag">天府市民中心</span>
+                <span class="case-tag">世纪互联数据中心</span>
+            </div>
+
+            <!-- Download Button -->
+            <a href="AI项目管理案例白皮书.pdf" class="download-btn" download>
+                📥 立即下载白皮书
+            </a>
+            <p class="download-note">PDF格式，免费下载，无需注册</p>
+
+            <!-- Links Section -->
+            <div class="links-section">
+                <p class="links-title">想了解更多？</p>
+                <div class="links-grid">
+                    <a href="demo-request.html" class="link-btn">预约演示</a>
+                    <a href="index.html" class="link-btn">查看解决方案</a>
+                </div>
             </div>
         </div>
-
-        <div class="content-card success-message" id="successMessage">
-            <h3>✓ 下载链接已发送！</h3>
-            <p>白皮书下载链接已发送至您的邮箱，同时我们的顾问将在24小时内与您联系。</p>
-            <a href="#" class="download-link" onclick="downloadPDF()">点击直接下载</a>
-            <p style="margin-top: 30px; font-size: 1em; opacity: 0.8;">
-                项目负责人：邹景焘 | 电话：175-2101-7691 | 公司：建智通程
-            </p>
-        </div>
     </div>
-
-    <script>
-        document.getElementById('downloadWhitepaperForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            console.log('下载白皮书数据：', data);
-            
-            // 这里应该发送到后端
-            // fetch('/api/whitepaper-download', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(data)
-            // });
-            
-            // 隐藏表单，显示成功消息
-            document.getElementById('downloadForm').style.display = 'none';
-            document.getElementById('successMessage').classList.add('show');
-            
-            document.getElementById('successMessage').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'center'
-            });
-        });
-
-        function downloadPDF() {
-            // 这里触发PDF下载
-            // window.location.href = '/files/建智通程-AI项目管理案例白皮书.pdf';
-            alert('下载功能已触发！实际部署时将下载PDF文件。');
-        }
-    </script>
 </body>
 </html>
