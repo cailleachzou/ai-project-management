@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI项目管理 - 对话即管理</title>
+    <title>AI项目管理 - 对话即管理 | 建智通程</title>
+    <meta name="description" content="建智通程AI项目管理平台，通过对话完成项目管理，效率提升70%，操作减少90%">
+    <meta name="keywords" content="AI项目管理,智慧建筑,建筑自动化,BIM,对话式管理,建智通程">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI项目管理 - 对话即管理">
+    <meta property="og:description" content="通过简单对话，完成复杂的项目管理任务">
+    <meta property="og:url" content="https://cailleachzou.github.io/ai-project-management/">
+    
     <style>
         * {
             margin: 0;
@@ -17,11 +25,17 @@
             --light-blue: #3b82f6;
             --sky-blue: #0ea5e9;
             --dark-blue: #1e40af;
+            --success-green: #10b981;
+            --warning-yellow: #f59e0b;
             --pure-white: #ffffff;
             --off-white: #f8fafc;
             --light-gray: #e2e8f0;
+            --border-gray: #cbd5e1;
             --text-dark: #1e293b;
             --text-gray: #64748b;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
         }
 
         body {
@@ -38,45 +52,56 @@
             position: relative;
             min-height: 100vh;
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(14, 165, 233, 0.9) 100%),
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80') center/cover;
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80') center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px 60px;
         }
 
         .hero-content {
+            max-width: 900px;
             width: 100%;
         }
 
         .hero-badge {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 24px;
             background: rgba(255,255,255,0.25);
-            border-radius: 25px;
-            font-size: 14px;
-            margin-bottom: 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            margin-bottom: 25px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.4);
+            font-weight: 500;
         }
 
         .hero h1 {
-            font-size: 32px;
+            font-size: clamp(32px, 8vw, 56px);
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .hero .subtitle {
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 22px);
             font-weight: 400;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             opacity: 0.95;
             line-height: 1.6;
-            padding: 0 10px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .hero-cta {
@@ -92,8 +117,16 @@
             transition: all 0.3s ease;
         }
 
-        .hero-cta:active {
-            transform: scale(0.95);
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        .hero-cta.secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.5);
         }
 
         .scroll-hint {
@@ -101,188 +134,130 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: white;
-            font-size: 14px;
-            opacity: 0.8;
             animation: bounce 2s infinite;
+            opacity: 0.8;
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
         }
 
-        /* Value Proposition */
-        .value-section {
-            background: white;
-            padding: 50px 20px;
+        /* Section Common */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
         }
 
         .section-title {
-            font-size: 28px;
-            color: var(--dark-blue);
+            font-size: clamp(28px, 6vw, 42px);
+            font-weight: 700;
+            color: var(--text-dark);
             margin-bottom: 15px;
-            font-weight: 800;
-            text-align: center;
-            line-height: 1.3;
         }
 
         .section-subtitle {
-            text-align: center;
-            font-size: 16px;
+            font-size: clamp(16px, 3vw, 20px);
             color: var(--text-gray);
-            margin-bottom: 35px;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
-        .value-features {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Value Props */
+        .value-props {
+            background: white;
+        }
+
+        .props-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .value-feature {
+        .prop-card {
             background: var(--off-white);
-            padding: 25px 15px;
-            border-radius: 15px;
+            padding: 35px 25px;
+            border-radius: 16px;
             text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .feature-icon {
-            font-size: 40px;
+        .prop-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .prop-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .prop-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
             margin-bottom: 12px;
         }
 
-        .value-feature h3 {
-            font-size: 16px;
-            color: var(--dark-blue);
-            margin-bottom: 8px;
-            font-weight: 700;
+        .prop-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin: 15px 0;
         }
 
-        .value-feature p {
-            font-size: 14px;
+        .prop-description {
             color: var(--text-gray);
-            line-height: 1.5;
-        }
-
-        /* Conversation Example */
-        .conversation-box {
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-            padding: 30px 20px;
-            border-radius: 15px;
-            margin: 30px 0;
-        }
-
-        .example-title {
-            font-size: 18px;
-            color: var(--dark-blue);
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .chat-bubble {
-            margin-bottom: 15px;
-            animation: slideIn 0.5s ease;
-        }
-
-        .bubble-header {
-            font-size: 13px;
-            color: var(--text-gray);
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .user-bubble {
-            text-align: right;
-        }
-
-        .ai-bubble {
-            text-align: left;
-        }
-
-        .bubble-content {
-            display: inline-block;
-            padding: 15px 18px;
-            border-radius: 16px;
             font-size: 15px;
             line-height: 1.6;
-            max-width: 90%;
-        }
-
-        .user-bubble .bubble-content {
-            background: var(--primary-blue);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-
-        .ai-bubble .bubble-content {
-            background: white;
-            color: var(--text-dark);
-            border: 2px solid var(--light-gray);
-            border-bottom-left-radius: 4px;
-        }
-
-        .example-note {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--sky-blue);
-            margin-top: 20px;
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--text-gray);
-        }
-
-        .example-note strong {
-            color: var(--dark-blue);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Scenarios Section */
         .scenarios-section {
             background: var(--off-white);
-            padding: 50px 20px;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .scenario-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .scenario-image {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
 
         .scenario-content {
-            padding: 25px 20px;
+            padding: 25px;
         }
 
         .scenario-header {
@@ -294,447 +269,470 @@
 
         .scenario-icon {
             font-size: 32px;
-            flex-shrink: 0;
         }
 
         .scenario-title {
-            font-size: 20px;
-            color: var(--dark-blue);
+            font-size: 22px;
             font-weight: 700;
-            line-height: 1.3;
-        }
-
-        .dialogue-trigger {
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--sky-blue);
-        }
-
-        .trigger-label {
-            font-size: 13px;
-            color: var(--text-gray);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .trigger-text {
-            font-size: 16px;
-            color: var(--dark-blue);
-            font-weight: 600;
-            font-style: italic;
-            line-height: 1.5;
-        }
-
-        .scenario-description {
-            font-size: 15px;
-            color: var(--text-gray);
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-
-        /* Collapsible Details */
-        .details-toggle {
-            background: var(--off-white);
-            border: 2px solid var(--light-gray);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 15px;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.3s ease;
-        }
-
-        .details-toggle:active {
-            background: #e1e8f0;
-        }
-
-        .toggle-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
-            color: var(--primary-blue);
-            font-size: 15px;
-        }
-
-        .toggle-icon {
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-icon.open {
-            transform: rotate(180deg);
-        }
-
-        .toggle-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .toggle-content.open {
-            max-height: 500px;
-            margin-top: 15px;
-        }
-
-        .workflow-steps {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        .workflow-steps .step {
-            padding: 6px 0 6px 20px;
-            position: relative;
-        }
-
-        .workflow-steps .step::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--sky-blue);
-            font-weight: bold;
-        }
-
-        .benefits-list {
-            list-style: none;
-            font-size: 14px;
             color: var(--text-dark);
         }
 
-        .benefits-list li {
-            padding: 6px 0 6px 20px;
-            position: relative;
-            line-height: 1.6;
-        }
-
-        .benefits-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--primary-blue);
-            font-weight: bold;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            background: var(--primary-blue);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .stats-section .section-title {
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 35px;
-        }
-
-        .stat-item {
-            padding: 25px 15px;
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 800;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 15px;
-            opacity: 0.95;
-        }
-
-        /* Best Practices */
-        .practices-section {
-            background: white;
-            padding: 50px 20px;
-        }
-
-        .practice-card {
+        .scenario-dialogue {
             background: var(--off-white);
-            padding: 25px 20px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            border-top: 4px solid var(--primary-blue);
-        }
-
-        .practice-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-
-        .practice-title {
-            font-size: 18px;
-            color: var(--dark-blue);
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .practice-text {
-            font-size: 15px;
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 26px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            line-height: 1.3;
-        }
-
-        .cta-section p {
-            font-size: 16px;
-            margin-bottom: 30px;
-            opacity: 0.95;
-            line-height: 1.7;
-        }
-
-        .cta-button {
-            display: block;
-            width: 100%;
-            padding: 18px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 17px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button-primary {
-            background: white;
-            color: var(--primary-blue);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-        }
-
-        .cta-button-primary:active {
-            transform: scale(0.97);
-        }
-
-        .cta-button-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .cta-button-secondary:active {
-            background: rgba(255,255,255,0.1);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 40px 20px 25px;
-            text-align: center;
-        }
-
-        footer p {
-            opacity: 0.85;
-            margin: 10px 0;
-            font-size: 15px;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.75;
-            font-size: 15px;
-            padding: 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-
-        .footer-links a:active {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* Footer Expandable Sections */
-        .footer-expandable {
-            margin: 25px 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
             border-radius: 12px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-blue);
         }
 
-        .expand-button {
-            width: 100%;
-            padding: 18px 20px;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
+        .dialogue-text {
+            color: var(--text-dark);
+            font-size: 15px;
+            font-style: italic;
+        }
+
+        .scenario-description {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        /* Expandable Details */
+        .expandable-section {
+            margin-top: 20px;
+            border-top: 1px solid var(--light-gray);
+            padding-top: 15px;
+        }
+
+        .expand-trigger {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            min-height: 56px;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 12px 15px;
+            background: var(--off-white);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            user-select: none;
         }
 
-        .expand-button:active {
-            background: rgba(255, 255, 255, 0.05);
+        .expand-trigger:hover {
+            background: var(--light-gray);
+        }
+
+        .expand-trigger-text {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 15px;
         }
 
         .expand-icon {
-            font-size: 14px;
             transition: transform 0.3s ease;
+            font-size: 20px;
+            color: var(--primary-blue);
         }
 
-        .expand-icon.rotated {
+        .expand-trigger.active .expand-icon {
             transform: rotate(180deg);
         }
 
         .expand-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease;
-            padding: 0 20px;
+            transition: max-height 0.4s ease;
         }
 
-        .expand-content.open {
-            max-height: 2500px;
-            padding: 0 20px 20px 20px;
+        .expand-content.show {
+            max-height: 2000px;
         }
 
-        .contact-info {
-            padding-top: 15px;
+        .expand-inner {
+            padding: 20px 15px 10px;
         }
 
-        .contact-item {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
+        /* Process Steps */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .contact-label {
-            font-size: 13px;
-            opacity: 0.7;
-            margin-bottom: 5px;
+        .process-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
         }
 
-        .contact-value {
-            font-size: 16px;
+        .step-number {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
             font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            font-size: 15px;
         }
 
-        .contact-value a {
-            color: #4AF;
-            text-decoration: none;
+        .step-description {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.5;
         }
 
-        .financing-info {
-            padding-top: 15px;
+        /* Effects Grid */
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .effect-item {
+            background: linear-gradient(135deg, var(--success-green), #059669);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
             text-align: center;
         }
 
-        .financing-info h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #FFD700;
+        .effect-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 5px;
         }
 
-        .financing-amount {
+        .effect-value {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue));
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(28px, 6vw, 42px);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 17px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-button-primary {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .cta-button-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button-secondary:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
             font-size: 18px;
-            font-weight: 600;
-            color: #4AF;
             margin-bottom: 20px;
+            color: white;
         }
 
-        .financing-section {
-            text-align: left;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .financing-section:last-of-type {
-            border-bottom: none;
-        }
-
-        .financing-section h4 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #FFD700;
-        }
-
-        .financing-section ul {
+        .footer-links {
             list-style: none;
-            padding: 0;
-            font-size: 14px;
         }
 
-        .financing-section ul li {
-            padding: 6px 0 6px 18px;
-            position: relative;
-            line-height: 1.6;
+        .footer-links li {
+            margin-bottom: 12px;
         }
 
-        .financing-section ul li:before {
-            content: "▪";
-            position: absolute;
-            left: 0;
-            color: #4AF;
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .financing-contact {
-            margin-top: 20px;
-            padding: 18px;
-            background: rgba(74, 144, 226, 0.15);
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-info {
+            color: var(--light-gray);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .footer-info strong {
+            color: white;
+        }
+
+        /* Expandable Footer Sections */
+        .expandable-footer {
+            margin-top: 30px;
+        }
+
+        .footer-expand-trigger {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .footer-expand-trigger:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .footer-expand-trigger.active {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .footer-expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .footer-expand-content.show {
+            max-height: 800px;
+        }
+
+        .footer-expand-inner {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
             border-radius: 8px;
-            border: 1px solid rgba(74, 144, 226, 0.3);
         }
 
-        .financing-contact p {
-            margin: 6px 0;
-            font-size: 14px;
+        .contact-item .icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
         }
 
-        .financing-contact a {
-            color: #4AF;
+        .contact-item .label {
+            font-size: 13px;
+            color: var(--light-gray);
+            margin-bottom: 5px;
+        }
+
+        .contact-item .value {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .contact-item a {
+            color: white;
             text-decoration: none;
         }
 
-        /* Loading Animation */
-        .fade-in {
-            animation: fadeIn 0.6s ease;
+        .financing-highlight {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        .financing-highlight h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .financing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .financing-item {
+            background: rgba(255,255,255,0.15);
+            padding: 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .financing-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .financing-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-gray);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 100vh;
+                padding: 60px 15px 40px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .section {
+                padding: 60px 15px;
+            }
+
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .props-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-cta {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .effects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .financing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .scenarios-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -743,493 +741,832 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">智能建筑 · AI管理</div>
-            <h1>建筑项目管理<br>对话即可完成</h1>
-            <p class="subtitle">无需学习软件，在企业微信/钉钉说一句话<br>AI智能体自动帮您搞定</p>
-            <a href="#value" class="hero-cta">了解更多</a>
+            <span class="hero-badge">🚀 AI驱动的智能项目管理</span>
+            <h1>对话即管理<br>效率提升70%</h1>
+            <p class="subtitle">
+                告别繁琐的系统操作，通过简单的对话就能完成复杂的项目管理任务<br>
+                AI秒级响应，自动执行，让管理回归本质
+            </p>
+            <div class="hero-cta-group">
+                <a href="https://cailleachzou.github.io/ai-project-management/demo-request.html" class="hero-cta">预约演示体验</a>
+                <a href="#scenarios" class="hero-cta secondary">了解更多</a>
+            </div>
         </div>
-        <div class="scroll-hint">↓ 向下滑动</div>
+        <div class="scroll-hint">
+            <span style="font-size: 32px;">↓</span>
+        </div>
     </section>
 
-    <!-- Value Proposition -->
-    <section id="value" class="value-section">
-        <h2 class="section-title">告别复杂软件<br>对话即管理</h2>
-        <p class="section-subtitle">像和同事聊天一样，告诉AI您的需求，一切自动完成</p>
-        
-        <div class="value-features">
-            <div class="value-feature">
-                <div class="feature-icon">💬</div>
-                <h3>自然对话</h3>
-                <p>不需要学习<br>说话就能用</p>
+    <!-- Value Props Section -->
+    <section class="section value-props" id="value">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">为什么选择我们</h2>
+                <p class="section-subtitle">用AI重新定义项目管理，让效率提升看得见</p>
             </div>
-            
-            <div class="value-feature">
-                <div class="feature-icon">🤖</div>
-                <h3>AI理解</h3>
-                <p>智能识别意图<br>自动匹配流程</p>
-            </div>
-            
-            <div class="value-feature">
-                <div class="feature-icon">⚡</div>
-                <h3>自动执行</h3>
-                <p>后台智能分配<br>跨系统协调</p>
-            </div>
-            
-            <div class="value-feature">
-                <div class="feature-icon">📱</div>
-                <h3>实时反馈</h3>
-                <p>进度即时通知<br>结果推送聊天</p>
-            </div>
-        </div>
-
-        <div class="conversation-box">
-            <div class="example-title">真实使用示例</div>
-            
-            <div class="chat-bubble user-bubble">
-                <div class="bubble-header">项目经理</div>
-                <div class="bubble-content">帮我查弱电系统进度，延期了就通知施工方</div>
-            </div>
-            
-            <div class="chat-bubble ai-bubble">
-                <div class="bubble-header">AI智能体</div>
-                <div class="bubble-content">
-                    ✓ 已查询进度<br>
-                    ✓ 发现延期3天<br>
-                    ✓ 已通知施工方<br>
-                    ✓ 已生成分析报告<br><br>
-                    需要安排会议吗？
+            <div class="props-grid">
+                <div class="prop-card fade-in">
+                    <span class="prop-icon">⚡</span>
+                    <h3 class="prop-title">效率提升</h3>
+                    <div class="prop-number">70%</div>
+                    <p class="prop-description">查图纸从10分钟缩短到10秒，进度汇报从1小时到30秒</p>
                 </div>
-            </div>
-
-            <div class="example-note">
-                <strong>幕后发生了什么？</strong>
-                AI自动调用项目系统查询、对比计划、发送通知、生成报表——这一切几秒内完成，您只需一句话。
+                <div class="prop-card fade-in">
+                    <span class="prop-icon">🎯</span>
+                    <h3 class="prop-title">操作减少</h3>
+                    <div class="prop-number">90%</div>
+                    <p class="prop-description">一句话替代10个步骤，自动化执行复杂工作流</p>
+                </div>
+                <div class="prop-card fade-in">
+                    <span class="prop-icon">🤖</span>
+                    <h3 class="prop-title">AI准确率</h3>
+                    <div class="prop-number">99%+</div>
+                    <p class="prop-description">智能理解需求，精准执行任务，自动记录全过程</p>
+                </div>
+                <div class="prop-card fade-in">
+                    <span class="prop-icon">💰</span>
+                    <h3 class="prop-title">成本节省</h3>
+                    <div class="prop-number">50%</div>
+                    <p class="prop-description">减少重复工作，降低沟通成本，提高团队产出</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Scenarios Section -->
-    <section class="scenarios-section">
-        <h2 class="section-title">对话即可完成的任务</h2>
-        <p class="section-subtitle">在通讯工具里说一句话，AI帮您搞定全流程</p>
+    <section class="section scenarios-section" id="scenarios">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">核心应用场景</h2>
+                <p class="section-subtitle">用对话解决实际问题，AI自动完成复杂工作</p>
+            </div>
+            <div class="scenarios-grid">
+                
+                <!-- Scenario 1: 图纸管理 -->
+                <div class="scenario-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80" alt="图纸管理" class="scenario-image">
+                    <div class="scenario-content">
+                        <div class="scenario-header">
+                            <span class="scenario-icon">📐</span>
+                            <h3 class="scenario-title">图纸版本管理</h3>
+                        </div>
+                        <div class="scenario-dialogue">
+                            <p class="dialogue-text">"给我F3楼三层的最新电气图纸"</p>
+                        </div>
+                        <p class="scenario-description">
+                            AI自动识别最新版本、发送给您、通知相关方、记录变更日志
+                        </p>
+                        
+                        <!-- 执行流程 -->
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📋 查看执行流程</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <div class="step-title">理解需求</div>
+                                                <div class="step-description">AI解析：楼栋(F3)、楼层(三层)、专业(电气)</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <div class="step-title">搜索图纸</div>
+                                                <div class="step-description">在图纸库中定位，识别最新版本(V2.3)</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <div class="step-title">发送图纸</div>
+                                                <div class="step-description">推送到您的企业微信/钉钉</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <div class="step-title">自动记录</div>
+                                                <div class="step-description">记录查看历史，标记常用图纸</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Scenario 1 -->
-        <div class="scenario-card fade-in">
-            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80" alt="图纸管理" class="scenario-image">
-            <div class="scenario-content">
-                <div class="scenario-header">
-                    <span class="scenario-icon">📐</span>
-                    <h3 class="scenario-title">图纸版本管理</h3>
-                </div>
-                
-                <div class="dialogue-trigger">
-                    <div class="trigger-label">您只需说：</div>
-                    <div class="trigger-text">"最新弱电图纸发我，通知施工方更新了"</div>
-                </div>
-                
-                <p class="scenario-description">AI自动识别最新版本、发送给您、通知相关方、记录变更日志</p>
-                
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>AI执行流程</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="toggle-content">
-                        <div class="workflow-steps">
-                            <div class="step">从云盘提取最新图纸</div>
-                            <div class="step">识别版本号和变更</div>
-                            <div class="step">推送给您和施工方</div>
-                            <div class="step">归档旧版更新目录</div>
-                            <div class="step">生成变更记录</div>
+                        <!-- 实际效果 -->
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📊 查看实际效果</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="effects-grid">
+                                        <div class="effect-item">
+                                            <div class="effect-label">查找时间</div>
+                                            <div class="effect-value">10秒</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">效率提升</div>
+                                            <div class="effect-value">98%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">版本错误</div>
+                                            <div class="effect-value">-95%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">自动记录</div>
+                                            <div class="effect-value">100%</div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 15px; color: var(--text-gray); font-size: 14px;">
+                                        <strong>实际案例</strong>：某超级工厂项目，图纸查找从平均10分钟降至10秒，版本混淆问题减少95%
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>实际效果</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="toggle-content">
-                        <ul class="benefits-list">
-                            <li>10分钟操作→10秒完成</li>
-                            <li>版本混乱减少95%</li>
-                            <li>通知送达率100%</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <!-- Scenario 2: 进度追踪 -->
+                <div class="scenario-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="进度追踪" class="scenario-image">
+                    <div class="scenario-content">
+                        <div class="scenario-header">
+                            <span class="scenario-icon">📊</span>
+                            <h3 class="scenario-title">进度实时追踪</h3>
+                        </div>
+                        <div class="scenario-dialogue">
+                            <p class="dialogue-text">"更新F3楼电气施工进度到85%"</p>
+                        </div>
+                        <p class="scenario-description">
+                            AI自动更新进度、生成甘特图、预警延期风险、通知相关方
+                        </p>
+                        
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📋 查看执行流程</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <div class="step-title">解析指令</div>
+                                                <div class="step-description">识别项目、专业、进度数值</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <div class="step-title">更新系统</div>
+                                                <div class="step-description">更新进度数据，刷新仪表盘</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <div class="step-title">风险分析</div>
+                                                <div class="step-description">对比计划进度，评估延期风险</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <div class="step-title">自动通知</div>
+                                                <div class="step-description">发送给项目经理、甲方代表</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Scenario 2 -->
-        <div class="scenario-card fade-in">
-            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80" alt="进度追踪" class="scenario-image">
-            <div class="scenario-content">
-                <div class="scenario-header">
-                    <span class="scenario-icon">📊</span>
-                    <h3 class="scenario-title">项目进度追踪</h3>
-                </div>
-                
-                <div class="dialogue-trigger">
-                    <div class="trigger-label">您只需说：</div>
-                    <div class="trigger-text">"本周进度怎么样？延期的标注一下"</div>
-                </div>
-                
-                <p class="scenario-description">AI自动汇总数据、生成可视化报表、识别延期项推送</p>
-                
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>AI执行流程</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="toggle-content">
-                        <div class="workflow-steps">
-                            <div class="step">汇总各方进度数据</div>
-                            <div class="step">对比计划识别延期</div>
-                            <div class="step">生成可视化甘特图</div>
-                            <div class="step">延期项目自动标红</div>
-                            <div class="step">推送报表到聊天</div>
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📊 查看实际效果</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="effects-grid">
+                                        <div class="effect-item">
+                                            <div class="effect-label">更新时间</div>
+                                            <div class="effect-value">30秒</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">进度透明</div>
+                                            <div class="effect-value">100%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">延期预警</div>
+                                            <div class="effect-value">提前3天</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">报告生成</div>
+                                            <div class="effect-value">自动</div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 15px; color: var(--text-gray); font-size: 14px;">
+                                        <strong>实际案例</strong>：某数据中心项目，进度汇报从每周2小时减至30秒，延期问题提前3天预警
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>实际效果</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="toggle-content">
-                        <ul class="benefits-list">
-                            <li>2小时整理→即问即答</li>
-                            <li>进度透明度+100%</li>
-                            <li>问题响应提升70%</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                <!-- Scenario 3: 材料管理 -->
+                <div class="scenario-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="材料管理" class="scenario-image">
+                    <div class="scenario-content">
+                        <div class="scenario-header">
+                            <span class="scenario-icon">📦</span>
+                            <h3 class="scenario-title">智能材料管理</h3>
+                        </div>
+                        <div class="scenario-dialogue">
+                            <p class="dialogue-text">"F3楼电缆还剩多少米？"</p>
+                        </div>
+                        <p class="scenario-description">
+                            AI查询库存、预测需求、提醒补货、优化采购计划
+                        </p>
+                        
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📋 查看执行流程</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <div class="step-title">查询库存</div>
+                                                <div class="step-description">实时查询材料库存数据</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <div class="step-title">需求预测</div>
+                                                <div class="step-description">基于进度预测后续用量</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <div class="step-title">补货提醒</div>
+                                                <div class="step-description">库存不足时自动预警</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <div class="step-title">采购建议</div>
+                                                <div class="step-description">推荐采购量和最佳时间</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Scenario 3 -->
-        <div class="scenario-card fade-in">
-            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="材料管理" class="scenario-image">
-            <div class="scenario-content">
-                <div class="scenario-header">
-                    <span class="scenario-icon">📦</span>
-                    <h3 class="scenario-title">材料设备管理</h3>
-                </div>
-                
-                <div class="dialogue-trigger">
-                    <div class="trigger-label">您只需说：</div>
-                    <div class="trigger-text">"消防设备什么时候到？催一下供应商"</div>
-                </div>
-                
-                <p class="scenario-description">AI自动查询订单、联系供应商、跟踪物流并反馈</p>
-                
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>实际效果</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="toggle-content">
-                        <ul class="benefits-list">
-                            <li>打电话发邮件→一句话</li>
-                            <li>到货及时率+60%</li>
-                            <li>停工待料-85%</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scenario 4 -->
-        <div class="scenario-card fade-in">
-            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80" alt="质量检查" class="scenario-image">
-            <div class="scenario-content">
-                <div class="scenario-header">
-                    <span class="scenario-icon">🔍</span>
-                    <h3 class="scenario-title">质量检查管理</h3>
-                </div>
-                
-                <div class="dialogue-trigger">
-                    <div class="trigger-label">您只需说：</div>
-                    <div class="trigger-text">"记录质量问题：3层线槽不规范，让XX公司整改"</div>
-                </div>
-                
-                <p class="scenario-description">AI自动创建工单、分配责任方、设置期限、跟踪闭环</p>
-                
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>实际效果</span>
-                        <span class="toggle-icon">▼</span>
-                    </div>
-                    <div class="toggle-content">
-                        <ul class="benefits-list">
-                            <li>填表拍照→语音录入</li>
-                            <li>问题响应+75%</li>
-                            <li>整改闭环率100%</li>
-                        </ul>
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📊 查看实际效果</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="effects-grid">
+                                        <div class="effect-item">
+                                            <div class="effect-label">查询时间</div>
+                                            <div class="effect-value">5秒</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">库存准确</div>
+                                            <div class="effect-value">99%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">浪费减少</div>
+                                            <div class="effect-value">30%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">缺货次数</div>
+                                            <div class="effect-value">-80%</div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 15px; color: var(--text-gray); font-size: 14px;">
+                                        <strong>实际案例</strong>：某智慧园区项目，材料浪费减少30%，缺货导致的工期延误减少80%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Scenario 5 -->
-        <div class="scenario-card fade-in">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="变更管理" class="scenario-image">
-            <div class="scenario-content">
-                <div class="scenario-header">
-                    <span class="scenario-icon">🔄</span>
-                    <h3 class="scenario-title">设计变更管理</h3>
-                </div>
-                
-                <div class="dialogue-trigger">
-                    <div class="trigger-label">您只需说：</div>
-                    <div class="trigger-text">"会议室加投影系统，预算3万，发起审批"</div>
-                </div>
-                
-                <p class="scenario-description">AI自动创建变更单、计算影响、发起审批、跟踪执行</p>
-                
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>实际效果</span>
-                        <span class="toggle-icon">▼</span>
+                <!-- Scenario 4: 质量管控 -->
+                <div class="scenario-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80" alt="质量管控" class="scenario-image">
+                    <div class="scenario-content">
+                        <div class="scenario-header">
+                            <span class="scenario-icon">✅</span>
+                            <h3 class="scenario-title">AI质量管控</h3>
+                        </div>
+                        <div class="scenario-dialogue">
+                            <p class="dialogue-text">"检查这张照片的施工质量"</p>
+                        </div>
+                        <p class="scenario-description">
+                            AI视觉识别质量问题、自动生成整改单、追踪整改进度
+                        </p>
+                        
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📋 查看执行流程</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <div class="step-title">图像分析</div>
+                                                <div class="step-description">AI视觉识别施工缺陷</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <div class="step-title">问题分类</div>
+                                                <div class="step-description">按严重程度分级(A/B/C)</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <div class="step-title">生成整改单</div>
+                                                <div class="step-description">自动填写问题描述、位置、照片</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <div class="step-title">跟踪闭环</div>
+                                                <div class="step-description">定时提醒，验证整改完成</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📊 查看实际效果</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="effects-grid">
+                                        <div class="effect-item">
+                                            <div class="effect-label">识别准确</div>
+                                            <div class="effect-value">95%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">检查效率</div>
+                                            <div class="effect-value">+5倍</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">整改周期</div>
+                                            <div class="effect-value">-50%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">闭环率</div>
+                                            <div class="effect-value">100%</div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 15px; color: var(--text-gray); font-size: 14px;">
+                                        <strong>实际案例</strong>：某航天园区项目，质量检查效率提升5倍，问题整改周期缩短50%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="toggle-content">
-                        <ul class="benefits-list">
-                            <li>线下签字→线上秒批</li>
-                            <li>审批周期-50%</li>
-                            <li>变更历史可追溯</li>
-                        </ul>
+                </div>
+
+                <!-- Scenario 5: 变更管理 -->
+                <div class="scenario-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="变更管理" class="scenario-image">
+                    <div class="scenario-content">
+                        <div class="scenario-header">
+                            <span class="scenario-icon">🔄</span>
+                            <h3 class="scenario-title">变更智能管理</h3>
+                        </div>
+                        <div class="scenario-dialogue">
+                            <p class="dialogue-text">"发起F3楼三层设计变更审批"</p>
+                        </div>
+                        <p class="scenario-description">
+                            AI启动审批流、计算影响、更新成本、同步各方信息
+                        </p>
+                        
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📋 查看执行流程</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <div class="step-title">创建变更单</div>
+                                                <div class="step-description">自动填写基本信息和附件</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <div class="step-title">影响分析</div>
+                                                <div class="step-description">计算对工期、成本的影响</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <div class="step-title">启动审批</div>
+                                                <div class="step-description">按流程推送给各级审批人</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <div class="step-title">执行同步</div>
+                                                <div class="step-description">审批通过后自动更新相关数据</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📊 查看实际效果</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="effects-grid">
+                                        <div class="effect-item">
+                                            <div class="effect-label">审批周期</div>
+                                            <div class="effect-value">1.5天</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">效率提升</div>
+                                            <div class="effect-value">50%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">信息同步</div>
+                                            <div class="effect-value">实时</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">遗漏率</div>
+                                            <div class="effect-value">0%</div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 15px; color: var(--text-gray); font-size: 14px;">
+                                        <strong>实际案例</strong>：某总部大楼项目，变更审批周期从3天缩短到1.5天，信息同步遗漏率降为0
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Scenario 6 -->
-        <div class="scenario-card fade-in">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="数据报表" class="scenario-image">
-            <div class="scenario-content">
-                <div class="scenario-header">
-                    <span class="scenario-icon">📈</span>
-                    <h3 class="scenario-title">数据报表生成</h3>
-                </div>
-                
-                <div class="dialogue-trigger">
-                    <div class="trigger-label">您只需说：</div>
-                    <div class="trigger-text">"生成本月项目汇报，重点是进度和成本"</div>
-                </div>
-                
-                <p class="scenario-description">AI自动汇总数据、生成多维度报表、标注异常推送</p>
-                
-                <div class="details-toggle" onclick="toggleDetails(this)">
-                    <div class="toggle-header">
-                        <span>实际效果</span>
-                        <span class="toggle-icon">▼</span>
+                <!-- Scenario 6: 数据报表 -->
+                <div class="scenario-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="数据报表" class="scenario-image">
+                    <div class="scenario-content">
+                        <div class="scenario-header">
+                            <span class="scenario-icon">📈</span>
+                            <h3 class="scenario-title">智能数据报表</h3>
+                        </div>
+                        <div class="scenario-dialogue">
+                            <p class="dialogue-text">"生成本周项目进度周报"</p>
+                        </div>
+                        <p class="scenario-description">
+                            AI自动汇总数据、生成图表、撰写分析、一键分发
+                        </p>
+                        
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📋 查看执行流程</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <div class="step-title">数据收集</div>
+                                                <div class="step-description">自动汇总进度、成本、质量数据</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <div class="step-title">生成图表</div>
+                                                <div class="step-description">创建甘特图、趋势图、对比图</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <div class="step-title">AI分析</div>
+                                                <div class="step-description">撰写进度总结和问题分析</div>
+                                            </div>
+                                        </div>
+                                        <div class="process-step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <div class="step-title">自动分发</div>
+                                                <div class="step-description">发送给相关方，支持PDF/PPT格式</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="expandable-section">
+                            <div class="expand-trigger" onclick="toggleExpand(this)">
+                                <span class="expand-trigger-text">📊 查看实际效果</span>
+                                <span class="expand-icon">▼</span>
+                            </div>
+                            <div class="expand-content">
+                                <div class="expand-inner">
+                                    <div class="effects-grid">
+                                        <div class="effect-item">
+                                            <div class="effect-label">生成时间</div>
+                                            <div class="effect-value">3分钟</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">效率提升</div>
+                                            <div class="effect-value">95%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">数据准确</div>
+                                            <div class="effect-value">100%</div>
+                                        </div>
+                                        <div class="effect-item">
+                                            <div class="effect-label">人工时间</div>
+                                            <div class="effect-value">节省2小时</div>
+                                        </div>
+                                    </div>
+                                    <p style="margin-top: 15px; color: var(--text-gray); font-size: 14px;">
+                                        <strong>实际案例</strong>：某市民中心项目，周报制作从2小时减至3分钟，数据准确率100%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="toggle-content">
-                        <ul class="benefits-list">
-                            <li>半天整理→10分钟</li>
-                            <li>数据准确率100%</li>
-                            <li>决策更及时精准</li>
-                        </ul>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <h2 class="section-title">预期效果</h2>
-        
-        <div class="stats-grid">
-            <div class="stat-item">
-                <span class="stat-number">70%</span>
-                <div class="stat-label">效率提升</div>
             </div>
-            
-            <div class="stat-item">
-                <span class="stat-number">90%</span>
-                <div class="stat-label">操作减少</div>
-            </div>
-            
-            <div class="stat-item">
-                <span class="stat-number">99%+</span>
-                <div class="stat-label">准确率</div>
-            </div>
-            
-            <div class="stat-item">
-                <span class="stat-number">50%</span>
-                <div class="stat-label">成本降低</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Best Practices -->
-    <section class="practices-section">
-        <h2 class="section-title">实施建议</h2>
-        <p class="section-subtitle">从小场景开始，逐步扩展</p>
-        
-        <div class="practice-card">
-            <div class="practice-icon">🎯</div>
-            <h3 class="practice-title">选择痛点场景</h3>
-            <p class="practice-text">从最耗时、最重复的环节入手，快速见效建立信心</p>
-        </div>
-
-        <div class="practice-card">
-            <div class="practice-icon">🔗</div>
-            <h3 class="practice-title">做好系统对接</h3>
-            <p class="practice-text">评估现有系统API能力，确保数据能顺畅流转</p>
-        </div>
-
-        <div class="practice-card">
-            <div class="practice-icon">👥</div>
-            <h3 class="practice-title">重视用户培训</h3>
-            <p class="practice-text">教会团队如何和AI对话，降低使用门槛</p>
-        </div>
-
-        <div class="practice-card">
-            <div class="practice-icon">🔄</div>
-            <h3 class="practice-title">持续优化迭代</h3>
-            <p class="practice-text">收集反馈，不断调整流程，提升AI理解准确度</p>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2>项目管理<br>像聊天一样简单</h2>
-        <p>不需要培训，不需要记忆操作。在企业微信、钉钉或飞书里，用最自然的语言表达需求，AI帮您搞定一切。</p>
-        <a href="demo-request.html" class="cta-button cta-button-primary">预约演示体验</a>
-        <a href="whitepaper-download.html" class="cta-button cta-button-secondary">下载案例白皮书</a>
+        <div class="container">
+            <h2>准备好提升项目管理效率了吗？</h2>
+            <p>30分钟演示，见证AI如何革新项目管理</p>
+            <div class="cta-buttons">
+                <a href="https://cailleachzou.github.io/ai-project-management/demo-request.html" class="cta-button cta-button-primary">预约演示体验</a>
+                <a href="https://cailleachzou.github.io/ai-project-management/whitepaper-download.html" class="cta-button cta-button-secondary">下载案例白皮书</a>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <p><strong>建智通程 | AI项目管理平台</strong></p>
-        <p>让项目管理像聊天一样简单</p>
-        
-        <!-- Expandable Contact Section -->
-        <div class="footer-expandable">
-            <button class="expand-button" onclick="toggleSection('contact')">
-                <span>📞 联系我们</span>
-                <span class="expand-icon" id="contact-icon">▼</span>
-            </button>
-            <div class="expand-content" id="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-label">公司名称</div>
-                        <div class="contact-value">建智通程（上海）</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-label">创始人</div>
-                        <div class="contact-value">邹景焘</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-label">电话</div>
-                        <div class="contact-value"><a href="tel:17521017691">175-2101-7691</a></div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-label">邮箱</div>
-                        <div class="contact-value"><a href="/cdn-cgi/l/email-protection#8cbeb9bcbebbbcb8b5bdbbccfdfda2efe3e1"><span class="__cf_email__" data-cfemail="2b191e1b191c1b1f121a1c6b5a5a05484446">[email&#160;protected]</span></a></div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>建智通程</h3>
+                    <p class="footer-info">
+                        AI驱动的智能项目管理平台<br>
+                        让项目管理回归对话本质<br>
+                        <strong>效率提升70% | 操作减少90%</strong>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://cailleachzou.github.io/ai-project-management/">返回主页</a></li>
+                        <li><a href="https://cailleachzou.github.io/ai-project-management/desktop.html">产品详情</a></li>
+                        <li><a href="https://cailleachzou.github.io/ai-project-management/demo-request.html">预约演示</a></li>
+                        <li><a href="https://cailleachzou.github.io/ai-project-management/whitepaper-download.html">下载白皮书</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p class="footer-info">
+                        <strong>建智通程（上海）信息科技有限公司</strong><br>
+                        专注于建筑行业AI项目管理<br>
+                        7年建筑自动化经验<br>
+                        500+工作流模板
+                    </p>
+                </div>
+            </div>
+
+            <!-- Expandable Contact Section -->
+            <div class="expandable-footer">
+                <button class="footer-expand-trigger" onclick="toggleFooterSection('contact')">
+                    <span>📞 联系我们</span>
+                    <span class="expand-icon" id="contact-icon">▼</span>
+                </button>
+                <div class="footer-expand-content" id="contact-content">
+                    <div class="footer-expand-inner">
+                        <div class="contact-grid">
+                            <div class="contact-item">
+                                <span class="icon">👤</span>
+                                <div class="label">创始人</div>
+                                <div class="value">邹景焘</div>
+                            </div>
+                            <div class="contact-item">
+                                <span class="icon">📞</span>
+                                <div class="label">联系电话</div>
+                                <div class="value"><a href="tel:17521017691">175-2101-7691</a></div>
+                            </div>
+                            <div class="contact-item">
+                                <span class="icon">✉️</span>
+                                <div class="label">商务邮箱</div>
+                                <div class="value"><a href="mailto:2502704917@qq.com">2502704917@qq.com</a></div>
+                            </div>
+                            <div class="contact-item">
+                                <span class="icon">💼</span>
+                                <div class="label">BP投递</div>
+                                <div class="value"><a href="mailto:bp@jztc.com">bp@jztc.com</a></div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 20px; text-align: center; color: var(--light-gray);">
+                            📍 上海市浦东新区
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Expandable Financing Section -->
-        <div class="footer-expandable">
-            <button class="expand-button" onclick="toggleSection('financing')">
-                <span>💰 融资渠道</span>
-                <span class="expand-icon" id="financing-icon">▼</span>
-            </button>
-            <div class="expand-content" id="financing-content">
-                <div class="financing-info">
-                    <h3>天使轮/Pre-A轮</h3>
-                    <p class="financing-amount">500-1000万元</p>
-                    
-                    <div class="financing-section">
-                        <h4>💡 资金用途</h4>
-                        <ul>
-                            <li>技术研发 50%</li>
-                            <li>市场拓展 30%</li>
-                            <li>团队建设 20%</li>
-                        </ul>
-                    </div>
+            <!-- Expandable Financing Section -->
+            <div class="expandable-footer">
+                <button class="footer-expand-trigger" onclick="toggleFooterSection('financing')">
+                    <span>💰 融资渠道</span>
+                    <span class="expand-icon" id="financing-icon">▼</span>
+                </button>
+                <div class="footer-expand-content" id="financing-content">
+                    <div class="footer-expand-inner">
+                        <div class="financing-highlight">
+                            <h4>🚀 当前轮次：天使轮 / Pre-A</h4>
+                            <div class="financing-grid">
+                                <div class="financing-item">
+                                    <div class="financing-label">融资金额</div>
+                                    <div class="financing-value">500-1000万元</div>
+                                </div>
+                                <div class="financing-item">
+                                    <div class="financing-label">资金用途</div>
+                                    <div class="financing-value">技术研发 50%</div>
+                                </div>
+                                <div class="financing-item">
+                                    <div class="financing-label">市场拓展</div>
+                                    <div class="financing-value">30%</div>
+                                </div>
+                                <div class="financing-item">
+                                    <div class="financing-label">团队建设</div>
+                                    <div class="financing-value">20%</div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="financing-section">
-                        <h4>🎯 投资亮点</h4>
-                        <ul>
-                            <li>万亿级市场，CAGR 25%+</li>
-                            <li>AI+自动化技术护城河</li>
-                            <li>客户续约率90%+，NPS 85分</li>
-                        </ul>
-                    </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4 style="margin-bottom: 15px; font-size: 18px;">💡 投资亮点</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;">✅ <strong>万亿级市场</strong>：建筑智能化市场年增长25%+</li>
+                                <li style="margin-bottom: 10px;">✅ <strong>技术护城河</strong>：AI+自动化双重壁垒</li>
+                                <li style="margin-bottom: 10px;">✅ <strong>成熟产品</strong>：500+工作流模板，即买即用</li>
+                                <li style="margin-bottom: 10px;">✅ <strong>行业经验</strong>：创始人7年建筑自动化经验</li>
+                            </ul>
+                        </div>
 
-                    <div class="financing-contact">
-                        <p><strong>BP投递</strong></p>
-                        <p><a href="/cdn-cgi/l/email-protection#7615171f1a1a1317151e580c1903361903021a19191d5815191b"><span class="__cf_email__" data-cfemail="a2c1c3cbcecec7c3c1ca8cd8cdd7e2cdd7d6cecdcdc98cc1cdcf">[email&#160;protected]</span></a></p>
-                        <p><a href="tel:17521017691">175-2101-7691</a></p>
+                        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4 style="margin-bottom: 15px; font-size: 18px;">📊 业务数据</h4>
+                            <div class="financing-grid">
+                                <div class="financing-item">
+                                    <div class="financing-label">已签约客户</div>
+                                    <div class="financing-value">5家</div>
+                                </div>
+                                <div class="financing-item">
+                                    <div class="financing-label">项目总金额</div>
+                                    <div class="financing-value">260M+</div>
+                                </div>
+                                <div class="financing-item">
+                                    <div class="financing-label">续约率</div>
+                                    <div class="financing-value">90%+</div>
+                                </div>
+                                <div class="financing-item">
+                                    <div class="financing-label">NPS评分</div>
+                                    <div class="financing-value">85</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+                            <h4 style="margin-bottom: 15px; font-size: 18px;">🎯 增长计划</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;"><strong>1-2年目标</strong>：签约20+项目，ARR达到2000万</li>
+                                <li style="margin-bottom: 10px;"><strong>3-5年愿景</strong>：成为行业领导者，服务100+企业</li>
+                            </ul>
+                        </div>
+
+                        <p style="margin-top: 20px; text-align: center;">
+                            <strong>BP投递</strong>：<a href="mailto:bp@jztc.com" style="color: #f59e0b;">bp@jztc.com</a><br>
+                            <strong>联系电话</strong>：<a href="tel:17521017691" style="color: #f59e0b;">175-2101-7691</a>
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="footer-links">
-            <a href="demo-request.html">预约演示</a>
-            <a href="whitepaper-download.html">下载白皮书</a>
-            <a href="#scenarios">应用场景</a>
-            <a href="#" onclick="toggleSection('contact'); return false;">联系我们</a>
+            <div class="footer-bottom">
+                <p>© 2024 建智通程（上海）信息科技有限公司 | 邹景焘 175-2101-7691</p>
+                <p style="margin-top: 10px; font-size: 13px;">AI驱动的智能项目管理 | 对话即管理 | 效率提升70%</p>
+            </div>
         </div>
-        <p style="margin-top: 25px; font-size: 13px;">© 2025 建智通程 All Rights Reserved</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // 展开/收起功能
-        function toggleSection(sectionId) {
-            const content = document.getElementById(sectionId + '-content');
-            const icon = document.getElementById(sectionId + '-icon');
+    <script>
+        // Expand/Collapse for Scenario Details
+        function toggleExpand(trigger) {
+            const content = trigger.nextElementSibling;
+            const isExpanded = content.classList.contains('show');
             
-            if (content.classList.contains('open')) {
-                content.classList.remove('open');
-                icon.classList.remove('rotated');
+            if (isExpanded) {
+                content.classList.remove('show');
+                trigger.classList.remove('active');
             } else {
-                content.classList.add('open');
-                icon.classList.add('rotated');
+                content.classList.add('show');
+                trigger.classList.add('active');
             }
         }
 
-        // 可折叠详情切换
-        function toggleDetails(element) {
-            const content = element.querySelector('.toggle-content');
-            const icon = element.querySelector('.toggle-icon');
+        // Expand/Collapse for Footer Sections
+        function toggleFooterSection(sectionId) {
+            const content = document.getElementById(`${sectionId}-content`);
+            const icon = document.getElementById(`${sectionId}-icon`);
+            const trigger = icon.closest('.footer-expand-trigger');
             
-            content.classList.toggle('open');
-            icon.classList.toggle('open');
+            const isExpanded = content.classList.contains('show');
+            
+            if (isExpanded) {
+                content.classList.remove('show');
+                trigger.classList.remove('active');
+            } else {
+                content.classList.add('show');
+                trigger.classList.add('active');
+            }
         }
 
-        // 滚动动画
+        // Scroll Animation Observer
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.scenario-card').forEach((card) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'all 0.6s ease';
-            observer.observe(card);
+        // Observe all fade-in elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
         });
 
-        // 平滑滚动
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1239,4 +1576,9 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-             
+                }
+            });
+        });
+    </script>
+</body>
+</html>
