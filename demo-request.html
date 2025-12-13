@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预约演示体验 - 建智通程 AI项目管理解决方案</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --light-blue: #3b82f6;
+            --sky-blue: #0ea5e9;
+            --dark-blue: #1e40af;
+            --success-green: #10b981;
+            --pure-white: #ffffff;
+            --off-white: #f8fafc;
+            --light-gray: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-intro {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .form-intro h2 {
+            color: var(--dark-blue);
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .form-intro p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .form-group label .required {
+            color: #ef4444;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(37, 99, 235, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .contact-info {
+            background: var(--off-white);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            color: var(--dark-blue);
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-item {
+            padding: 15px;
+        }
+
+        .contact-item .icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        .contact-item .label {
+            font-size: 0.9em;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+
+        .contact-item .value {
+            font-size: 1.1em;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .success-message h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>预约演示体验</h1>
+            <p>让我们为您展示AI如何革新项目管理</p>
+        </div>
+
+        <div class="form-card">
+            <div class="form-intro">
+                <h2>为什么选择我们的演示？</h2>
+                <p>我们将为您展示如何通过简单的对话，完成复杂的项目管理任务。30分钟的演示，让您亲眼见证效率提升70%的实际效果。</p>
+            </div>
+
+            <form id="demoForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>您的姓名<span class="required">*</span></label>
+                        <input type="text" name="name" required placeholder="请输入您的姓名">
+                    </div>
+
+                    <div class="form-group">
+                        <label>公司名称<span class="required">*</span></label>
+                        <input type="text" name="company" required placeholder="请输入公司名称">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>联系电话<span class="required">*</span></label>
+                        <input type="tel" name="phone" required placeholder="请输入手机号码">
+                    </div>
+
+                    <div class="form-group">
+                        <label>电子邮箱<span class="required">*</span></label>
+                        <input type="email" name="email" required placeholder="请输入邮箱地址">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>您的职位<span class="required">*</span></label>
+                    <select name="position" required>
+                        <option value="">请选择您的职位</option>
+                        <option value="项目经理">项目经理</option>
+                        <option value="技术总监">技术总监</option>
+                        <option value="总经理/CEO">总经理/CEO</option>
+                        <option value="部门经理">部门经理</option>
+                        <option value="设计师">设计师</option>
+                        <option value="IT主管">IT主管</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>项目类型<span class="required">*</span></label>
+                    <select name="projectType" required>
+                        <option value="">请选择项目类型</option>
+                        <option value="智慧园区">智慧园区</option>
+                        <option value="智慧办公">智慧办公楼宇</option>
+                        <option value="智慧工厂">智慧工厂</option>
+                        <option value="数据中心">数据中心</option>
+                        <option value="医疗建筑">医疗建筑</option>
+                        <option value="教育建筑">教育建筑</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>感兴趣的功能（可多选）</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="features" value="图纸管理" id="feature1">
+                            <label for="feature1">图纸版本管理</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="features" value="进度追踪" id="feature2">
+                            <label for="feature2">项目进度追踪</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="features" value="材料管理" id="feature3">
+                            <label for="feature3">材料设备管理</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="features" value="质量管理" id="feature4">
+                            <label for="feature4">质量检查管理</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="features" value="成本管理" id="feature5">
+                            <label for="feature5">成本动态管控</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>期望演示时间</label>
+                    <select name="preferredTime">
+                        <option value="">请选择期望时间</option>
+                        <option value="本周内">本周内</option>
+                        <option value="下周">下周</option>
+                        <option value="两周内">两周内</option>
+                        <option value="一个月内">一个月内</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>项目需求说明</label>
+                    <textarea name="requirements" placeholder="请简要描述您的项目情况和具体需求，我们将为您定制演示内容..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">提交预约申请</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                <h3>✓ 预约成功！</h3>
+                <p>感谢您的信任！我们的专属顾问将在24小时内与您联系，为您安排演示时间。</p>
+            </div>
+
+            <div class="contact-info">
+                <h3>也可以直接联系我们</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="icon">👤</div>
+                        <div class="label">项目负责人</div>
+                        <div class="value">邹景焘</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📱</div>
+                        <div class="label">联系电话</div>
+                        <div class="value">175-2101-7691</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">🏢</div>
+                        <div class="label">公司名称</div>
+                        <div class="value">建智通程</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const formData = new FormData(this);
+            const data = {};
+            
+            // 处理多选框
+            const features = [];
+            formData.getAll('features').forEach(feature => {
+                features.push(feature);
+            });
+            
+            // 构建数据对象
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'features') {
+                    data[key] = value;
+                }
+            }
+            data.features = features;
+            
+            // 显示提交的数据（实际应用中这里应该发送到后端）
+            console.log('提交的数据：', data);
+            
+            // 这里可以添加实际的AJAX请求发送到后端
+            // fetch('/api/demo-request', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(data)
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Success:', data);
+            // });
+            
+            // 隐藏表单，显示成功消息
+            this.style.display = 'none';
+            document.getElementById('successMessage').classList.add('show');
+            
+            // 滚动到成功消息
+            document.getElementById('successMessage').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    </script>
+</body>
+</html>

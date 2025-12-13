@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI项目管理 - 对话即管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --light-blue: #3b82f6;
+            --sky-blue: #0ea5e9;
+            --dark-blue: #1e40af;
+            --pure-white: #ffffff;
+            --off-white: #f8fafc;
+            --light-gray: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--off-white);
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.95) 0%, rgba(14, 165, 233, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero-content {
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 25px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+            line-height: 1.3;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: var(--primary-blue);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 17px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta:active {
+            transform: scale(0.95);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Value Proposition */
+        .value-section {
+            background: white;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        .value-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .value-feature {
+            background: var(--off-white);
+            padding: 25px 15px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .value-feature h3 {
+            font-size: 16px;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .value-feature p {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Conversation Example */
+        .conversation-box {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .example-title {
+            font-size: 18px;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chat-bubble {
+            margin-bottom: 15px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .bubble-header {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .user-bubble {
+            text-align: right;
+        }
+
+        .ai-bubble {
+            text-align: left;
+        }
+
+        .bubble-content {
+            display: inline-block;
+            padding: 15px 18px;
+            border-radius: 16px;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .user-bubble .bubble-content {
+            background: var(--primary-blue);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai-bubble .bubble-content {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--light-gray);
+            border-bottom-left-radius: 4px;
+        }
+
+        .example-note {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--sky-blue);
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-gray);
+        }
+
+        .example-note strong {
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scenarios Section */
+        .scenarios-section {
+            background: var(--off-white);
+            padding: 50px 20px;
+        }
+
+        .scenario-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .scenario-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .scenario-content {
+            padding: 25px 20px;
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .scenario-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .scenario-title {
+            font-size: 20px;
+            color: var(--dark-blue);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .dialogue-trigger {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--sky-blue);
+        }
+
+        .trigger-label {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .trigger-text {
+            font-size: 16px;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .scenario-description {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* Collapsible Details */
+        .details-toggle {
+            background: var(--off-white);
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .details-toggle:active {
+            background: #e1e8f0;
+        }
+
+        .toggle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 15px;
+        }
+
+        .toggle-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .toggle-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .toggle-content.open {
+            max-height: 500px;
+            margin-top: 15px;
+        }
+
+        .workflow-steps {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .workflow-steps .step {
+            padding: 6px 0 6px 20px;
+            position: relative;
+        }
+
+        .workflow-steps .step::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--sky-blue);
+            font-weight: bold;
+        }
+
+        .benefits-list {
+            list-style: none;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .benefits-list li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--primary-blue);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .stats-section .section-title {
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .stat-item {
+            padding: 25px 15px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            opacity: 0.95;
+        }
+
+        /* Best Practices */
+        .practices-section {
+            background: white;
+            padding: 50px 20px;
+        }
+
+        .practice-card {
+            background: var(--off-white);
+            padding: 25px 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .practice-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .practice-title {
+            font-size: 18px;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .practice-text {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button-primary {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .cta-button-primary:active {
+            transform: scale(0.97);
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button-secondary:active {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 40px 20px 25px;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.85;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.75;
+            font-size: 15px;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .footer-links a:active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Footer Expandable Sections */
+        .footer-expandable {
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .expand-button {
+            width: 100%;
+            padding: 18px 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 56px;
+        }
+
+        .expand-button:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .expand-icon {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 20px;
+        }
+
+        .expand-content.open {
+            max-height: 2500px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .contact-info {
+            padding-top: 15px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .contact-label {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .contact-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .contact-value a {
+            color: #4AF;
+            text-decoration: none;
+        }
+
+        .financing-info {
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .financing-info h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #FFD700;
+        }
+
+        .financing-amount {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4AF;
+            margin-bottom: 20px;
+        }
+
+        .financing-section {
+            text-align: left;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .financing-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .financing-section h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .financing-section ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .financing-section ul li {
+            padding: 6px 0 6px 18px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .financing-section ul li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #4AF;
+        }
+
+        .financing-contact {
+            margin-top: 20px;
+            padding: 18px;
+            background: rgba(74, 144, 226, 0.15);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .financing-contact p {
+            margin: 6px 0;
+            font-size: 14px;
+        }
+
+        .financing-contact a {
+            color: #4AF;
+            text-decoration: none;
+        }
+
+        /* Loading Animation */
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">智能建筑 · AI管理</div>
+            <h1>建筑项目管理<br>对话即可完成</h1>
+            <p class="subtitle">无需学习软件，在企业微信/钉钉说一句话<br>AI智能体自动帮您搞定</p>
+            <a href="#value" class="hero-cta">了解更多</a>
+        </div>
+        <div class="scroll-hint">↓ 向下滑动</div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section id="value" class="value-section">
+        <h2 class="section-title">告别复杂软件<br>对话即管理</h2>
+        <p class="section-subtitle">像和同事聊天一样，告诉AI您的需求，一切自动完成</p>
+        
+        <div class="value-features">
+            <div class="value-feature">
+                <div class="feature-icon">💬</div>
+                <h3>自然对话</h3>
+                <p>不需要学习<br>说话就能用</p>
+            </div>
+            
+            <div class="value-feature">
+                <div class="feature-icon">🤖</div>
+                <h3>AI理解</h3>
+                <p>智能识别意图<br>自动匹配流程</p>
+            </div>
+            
+            <div class="value-feature">
+                <div class="feature-icon">⚡</div>
+                <h3>自动执行</h3>
+                <p>后台智能分配<br>跨系统协调</p>
+            </div>
+            
+            <div class="value-feature">
+                <div class="feature-icon">📱</div>
+                <h3>实时反馈</h3>
+                <p>进度即时通知<br>结果推送聊天</p>
+            </div>
+        </div>
+
+        <div class="conversation-box">
+            <div class="example-title">真实使用示例</div>
+            
+            <div class="chat-bubble user-bubble">
+                <div class="bubble-header">项目经理</div>
+                <div class="bubble-content">帮我查弱电系统进度，延期了就通知施工方</div>
+            </div>
+            
+            <div class="chat-bubble ai-bubble">
+                <div class="bubble-header">AI智能体</div>
+                <div class="bubble-content">
+                    ✓ 已查询进度<br>
+                    ✓ 发现延期3天<br>
+                    ✓ 已通知施工方<br>
+                    ✓ 已生成分析报告<br><br>
+                    需要安排会议吗？
+                </div>
+            </div>
+
+            <div class="example-note">
+                <strong>幕后发生了什么？</strong>
+                AI自动调用项目系统查询、对比计划、发送通知、生成报表——这一切几秒内完成，您只需一句话。
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenarios Section -->
+    <section class="scenarios-section">
+        <h2 class="section-title">对话即可完成的任务</h2>
+        <p class="section-subtitle">在通讯工具里说一句话，AI帮您搞定全流程</p>
+
+        <!-- Scenario 1 -->
+        <div class="scenario-card fade-in">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80" alt="图纸管理" class="scenario-image">
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-icon">📐</span>
+                    <h3 class="scenario-title">图纸版本管理</h3>
+                </div>
+                
+                <div class="dialogue-trigger">
+                    <div class="trigger-label">您只需说：</div>
+                    <div class="trigger-text">"最新弱电图纸发我，通知施工方更新了"</div>
+                </div>
+                
+                <p class="scenario-description">AI自动识别最新版本、发送给您、通知相关方、记录变更日志</p>
+                
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>AI执行流程</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <div class="workflow-steps">
+                            <div class="step">从云盘提取最新图纸</div>
+                            <div class="step">识别版本号和变更</div>
+                            <div class="step">推送给您和施工方</div>
+                            <div class="step">归档旧版更新目录</div>
+                            <div class="step">生成变更记录</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>实际效果</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <ul class="benefits-list">
+                            <li>10分钟操作→10秒完成</li>
+                            <li>版本混乱减少95%</li>
+                            <li>通知送达率100%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="scenario-card fade-in">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80" alt="进度追踪" class="scenario-image">
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-icon">📊</span>
+                    <h3 class="scenario-title">项目进度追踪</h3>
+                </div>
+                
+                <div class="dialogue-trigger">
+                    <div class="trigger-label">您只需说：</div>
+                    <div class="trigger-text">"本周进度怎么样？延期的标注一下"</div>
+                </div>
+                
+                <p class="scenario-description">AI自动汇总数据、生成可视化报表、识别延期项推送</p>
+                
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>AI执行流程</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <div class="workflow-steps">
+                            <div class="step">汇总各方进度数据</div>
+                            <div class="step">对比计划识别延期</div>
+                            <div class="step">生成可视化甘特图</div>
+                            <div class="step">延期项目自动标红</div>
+                            <div class="step">推送报表到聊天</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>实际效果</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <ul class="benefits-list">
+                            <li>2小时整理→即问即答</li>
+                            <li>进度透明度+100%</li>
+                            <li>问题响应提升70%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="scenario-card fade-in">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="材料管理" class="scenario-image">
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-icon">📦</span>
+                    <h3 class="scenario-title">材料设备管理</h3>
+                </div>
+                
+                <div class="dialogue-trigger">
+                    <div class="trigger-label">您只需说：</div>
+                    <div class="trigger-text">"消防设备什么时候到？催一下供应商"</div>
+                </div>
+                
+                <p class="scenario-description">AI自动查询订单、联系供应商、跟踪物流并反馈</p>
+                
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>实际效果</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <ul class="benefits-list">
+                            <li>打电话发邮件→一句话</li>
+                            <li>到货及时率+60%</li>
+                            <li>停工待料-85%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 4 -->
+        <div class="scenario-card fade-in">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80" alt="质量检查" class="scenario-image">
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-icon">🔍</span>
+                    <h3 class="scenario-title">质量检查管理</h3>
+                </div>
+                
+                <div class="dialogue-trigger">
+                    <div class="trigger-label">您只需说：</div>
+                    <div class="trigger-text">"记录质量问题：3层线槽不规范，让XX公司整改"</div>
+                </div>
+                
+                <p class="scenario-description">AI自动创建工单、分配责任方、设置期限、跟踪闭环</p>
+                
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>实际效果</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <ul class="benefits-list">
+                            <li>填表拍照→语音录入</li>
+                            <li>问题响应+75%</li>
+                            <li>整改闭环率100%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 5 -->
+        <div class="scenario-card fade-in">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="变更管理" class="scenario-image">
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-icon">🔄</span>
+                    <h3 class="scenario-title">设计变更管理</h3>
+                </div>
+                
+                <div class="dialogue-trigger">
+                    <div class="trigger-label">您只需说：</div>
+                    <div class="trigger-text">"会议室加投影系统，预算3万，发起审批"</div>
+                </div>
+                
+                <p class="scenario-description">AI自动创建变更单、计算影响、发起审批、跟踪执行</p>
+                
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>实际效果</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <ul class="benefits-list">
+                            <li>线下签字→线上秒批</li>
+                            <li>审批周期-50%</li>
+                            <li>变更历史可追溯</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 6 -->
+        <div class="scenario-card fade-in">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="数据报表" class="scenario-image">
+            <div class="scenario-content">
+                <div class="scenario-header">
+                    <span class="scenario-icon">📈</span>
+                    <h3 class="scenario-title">数据报表生成</h3>
+                </div>
+                
+                <div class="dialogue-trigger">
+                    <div class="trigger-label">您只需说：</div>
+                    <div class="trigger-text">"生成本月项目汇报，重点是进度和成本"</div>
+                </div>
+                
+                <p class="scenario-description">AI自动汇总数据、生成多维度报表、标注异常推送</p>
+                
+                <div class="details-toggle" onclick="toggleDetails(this)">
+                    <div class="toggle-header">
+                        <span>实际效果</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="toggle-content">
+                        <ul class="benefits-list">
+                            <li>半天整理→10分钟</li>
+                            <li>数据准确率100%</li>
+                            <li>决策更及时精准</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <h2 class="section-title">预期效果</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">70%</span>
+                <div class="stat-label">效率提升</div>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-number">90%</span>
+                <div class="stat-label">操作减少</div>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-number">99%+</span>
+                <div class="stat-label">准确率</div>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-number">50%</span>
+                <div class="stat-label">成本降低</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices -->
+    <section class="practices-section">
+        <h2 class="section-title">实施建议</h2>
+        <p class="section-subtitle">从小场景开始，逐步扩展</p>
+        
+        <div class="practice-card">
+            <div class="practice-icon">🎯</div>
+            <h3 class="practice-title">选择痛点场景</h3>
+            <p class="practice-text">从最耗时、最重复的环节入手，快速见效建立信心</p>
+        </div>
+
+        <div class="practice-card">
+            <div class="practice-icon">🔗</div>
+            <h3 class="practice-title">做好系统对接</h3>
+            <p class="practice-text">评估现有系统API能力，确保数据能顺畅流转</p>
+        </div>
+
+        <div class="practice-card">
+            <div class="practice-icon">👥</div>
+            <h3 class="practice-title">重视用户培训</h3>
+            <p class="practice-text">教会团队如何和AI对话，降低使用门槛</p>
+        </div>
+
+        <div class="practice-card">
+            <div class="practice-icon">🔄</div>
+            <h3 class="practice-title">持续优化迭代</h3>
+            <p class="practice-text">收集反馈，不断调整流程，提升AI理解准确度</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>项目管理<br>像聊天一样简单</h2>
+        <p>不需要培训，不需要记忆操作。在企业微信、钉钉或飞书里，用最自然的语言表达需求，AI帮您搞定一切。</p>
+        <a href="#" class="cta-button cta-button-primary">预约演示体验</a>
+        <a href="#" class="cta-button cta-button-secondary">下载案例白皮书</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>建智通程 | AI项目管理平台</strong></p>
+        <p>让项目管理像聊天一样简单</p>
+        
+        <!-- Expandable Contact Section -->
+        <div class="footer-expandable">
+            <button class="expand-button" onclick="toggleSection('contact')">
+                <span>📞 联系我们</span>
+                <span class="expand-icon" id="contact-icon">▼</span>
+            </button>
+            <div class="expand-content" id="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-label">公司名称</div>
+                        <div class="contact-value">建智通程（上海）</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">创始人</div>
+                        <div class="contact-value">邹景焘</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">电话</div>
+                        <div class="contact-value"><a href="tel:17521017691">175-2101-7691</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">邮箱</div>
+                        <div class="contact-value"><a href="mailto:2502704917@qq.com">2502704917@qq.com</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expandable Financing Section -->
+        <div class="footer-expandable">
+            <button class="expand-button" onclick="toggleSection('financing')">
+                <span>💰 融资渠道</span>
+                <span class="expand-icon" id="financing-icon">▼</span>
+            </button>
+            <div class="expand-content" id="financing-content">
+                <div class="financing-info">
+                    <h3>天使轮/Pre-A轮</h3>
+                    <p class="financing-amount">500-1000万元</p>
+                    
+                    <div class="financing-section">
+                        <h4>💡 资金用途</h4>
+                        <ul>
+                            <li>技术研发 50%</li>
+                            <li>市场拓展 30%</li>
+                            <li>团队建设 20%</li>
+                        </ul>
+                    </div>
+
+                    <div class="financing-section">
+                        <h4>🎯 投资亮点</h4>
+                        <ul>
+                            <li>万亿级市场，CAGR 25%+</li>
+                            <li>AI+自动化技术护城河</li>
+                            <li>客户续约率90%+，NPS 85分</li>
+                        </ul>
+                    </div>
+
+                    <div class="financing-contact">
+                        <p><strong>BP投递</strong></p>
+                        <p><a href="mailto:cailleach.zou@outlook.com">cailleach.zou@outlook.com</a></p>
+                        <p><a href="tel:17521017691">175-2101-7691</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="demo-request.html">预约演示</a>
+            <a href="whitepaper-download.html">下载白皮书</a>
+            <a href="#scenarios">应用场景</a>
+            <a href="#" onclick="toggleSection('contact'); return false;">联系我们</a>
+        </div>
+        <p style="margin-top: 25px; font-size: 13px;">© 2025 建智通程 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // 展开/收起功能
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const icon = document.getElementById(sectionId + '-icon');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('open');
+                icon.classList.add('rotated');
+            }
+        }
+
+        // 可折叠详情切换
+        function toggleDetails(element) {
+            const content = element.querySelector('.toggle-content');
+            const icon = element.querySelector('.toggle-icon');
+            
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scenario-card').forEach((card) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
