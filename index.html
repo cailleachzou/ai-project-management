@@ -678,7 +678,16 @@
         @media (max-width: 768px) {
             .hero {
                 min-height: 100vh;
-                padding: 60px 15px 40px;
+                padding: 56px 16px 36px;
+            }
+
+            .hero h1 {
+                font-size: clamp(28px, 8vw, 36px);
+            }
+
+            .hero-badge {
+                padding: 8px 18px;
+                font-size: 14px;
             }
 
             .section {
@@ -696,11 +705,21 @@
             .hero-cta-group {
                 flex-direction: column;
                 gap: 12px;
+                align-items: center;
             }
 
-            .hero-cta {
+            .hero-cta,
+            .hero-cta.secondary,
+            .cta-button {
                 width: 100%;
-                max-width: 300px;
+                max-width: 420px;
+                padding: 14px 20px;
+                font-size: 16px;
+                border-radius: 12px;
+                min-height: 48px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .effects-grid {
@@ -710,11 +729,19 @@
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 12px;
             }
 
             .cta-button {
                 width: 100%;
-                max-width: 300px;
+                max-width: 420px;
+            }
+
+            .footer-links {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 0;
             }
 
             .footer-grid {
@@ -748,7 +775,7 @@
                 AI秒级响应，自动执行，让管理回归本质
             </p>
             <div class="hero-cta-group">
-                <a href="https://cailleach.app.n8n.cloud/form/demo-request-jztc" class="hero-cta">预约演示体验</a>
+                <a href="https://cailleach.app.n8n.cloud/form/demo-request-jztc" class="hero-cta" target="_blank" rel="noopener noreferrer">预约演示体验</a>
                 <a href="#scenarios" class="hero-cta secondary">了解更多</a>
             </div>
         </div>
@@ -1354,8 +1381,8 @@
             <h2>准备好提升项目管理效率了吗？</h2>
             <p>30分钟演示，见证AI如何革新项目管理</p>
             <div class="cta-buttons">
-                <a href="https://cailleach.app.n8n.cloud/form/demo-request-jztc" class="cta-button cta-button-primary">预约演示体验</a>
-                <a href="AI项目管理案例白皮书.pdf" class="cta-button cta-button-secondary" download>下载案例白皮书</a>
+                <a href="https://cailleach.app.n8n.cloud/form/demo-request-jztc" class="cta-button cta-button-primary" target="_blank" rel="noopener noreferrer">预约演示体验</a>
+                <a href="AI项目管理案例白皮书.pdf" class="cta-button cta-button-secondary" download aria-label="下载 AI项目管理案例白皮书">下载案例白皮书</a>
             </div>
         </div>
     </section>
@@ -1377,8 +1404,8 @@
                     <ul class="footer-links">
                         <li><a href="https://cailleachzou.github.io/ai-project-management/">返回主页</a></li>
                         <li><a href="https://cailleachzou.github.io/ai-project-management/desktop.html">产品详情</a></li>
-                        <li><a href="https://cailleach.app.n8n.cloud/form/demo-request-jztc">预约演示</a></li>
-                        <li><a href="AI项目管理案例白皮书.pdf" download>下载白皮书</a></li>
+                        <li><a href="https://cailleach.app.n8n.cloud/form/demo-request-jztc" target="_blank" rel="noopener noreferrer">预约演示</a></li>
+                        <li><a href="AI项目管理案例白皮书.pdf" download aria-label="下载 AI项目管理案例白皮书">下载白皮书</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
